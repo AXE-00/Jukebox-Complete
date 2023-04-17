@@ -13,8 +13,8 @@ import java.util.Scanner;
 public class PlaylistDAO {
 
     private static final Connection connect = DatabaseConnectionUtil.getConnection();
-    PlaylistDetailsDAO playLi = new PlaylistDetailsDAO();
-    PlaylistDetails playlistD = new PlaylistDetails();
+    PlaylistDetailsDAO playList = new PlaylistDetailsDAO();
+    PlaylistDetails playlistDetails = new PlaylistDetails();
     SongDAO songDAO = new SongDAO();
     static Scanner input = new Scanner(System.in);
 
@@ -23,8 +23,8 @@ public class PlaylistDAO {
     public boolean playlistExist(String name) throws SQLException {
 
         String sql = "select * from playlist where playlist_name ='"+name+"';";
-        Statement stmt = connect.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        Statement statement = connect.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
         if(rs.next()){
             System.out.println("Playlist already exist!");
 
@@ -40,9 +40,9 @@ public class PlaylistDAO {
         int row, choice3;
 
         String sql = "INSERT INTO PLAYLIST (PLAYLIST_NAME) Values (?)";
-        PreparedStatement stmt = connect.prepareStatement(sql);
-        stmt.setString(1, name);
-        row = stmt.executeUpdate();
+        PreparedStatement statement = connect.prepareStatement(sql);
+        statement.setString(1, name);
+        row = statement.executeUpdate();
         if(row>0) {
             System.out.println("PlayList created Successfully");
             System.out.println();
@@ -54,14 +54,14 @@ public class PlaylistDAO {
                     System.out.println("Enter the Song Id you wants to add : ");
                     List<Songs> list = songDAO.getAllSongs();
                     songDAO.displaySongs(list);
-                    playlistD.setSong_Id(input.nextInt());
+                    playlistDetails.setSongId(input.nextInt());
 
                     System.out.println("Enter the PlayList id : ");
                     List<Playlist> l_Data = getAllDetails();
                     displayList(l_Data);
-                    playlistD.setPlayList_Id(input.nextInt());
+                    playlistDetails.setPlayListId(input.nextInt());
 
-                    String action = playLi.addSongInPlaylist(playlistD.getSong_Id(), playlistD.getPlayList_Id());
+                    String action = playList.addSongInPlaylist(playlistDetails.getSongId(), playlistDetails.getPlayListId());
                     System.out.println(action);
                 }
             }
@@ -73,14 +73,14 @@ public class PlaylistDAO {
 
     public String deletePlaylist(Playlist playlist) throws SQLException{
         int rows, row ;
-        String sql = "Delete from songInPlaylist where PlaylistId ="+playlist.getPlaylist_id()+";";
-        Statement stmt = connect.createStatement();
-        rows = stmt.executeUpdate(sql);
+        String sql = "Delete from songInPlaylist where PlaylistId ="+playlist.getPlaylistId()+";";
+        Statement statement = connect.createStatement();
+        rows = statement.executeUpdate(sql);
         if(rows>0 || rows==0){  // if rows==0, means that there is no playlist available in songInPlaylist
 
-            String sql1 = "Delete from playlist where Playlist_Id ="+playlist.getPlaylist_id()+";";
-            Statement stmt1 = connect.createStatement();
-            row = stmt1.executeUpdate(sql1);
+            String sql1 = "Delete from playlist where Playlist_Id ="+playlist.getPlaylistId()+";";
+            Statement statement1 = connect.createStatement();
+            row = statement1.executeUpdate(sql1);
             if(row>0){
                 return "Playlist deleted!";
             }
@@ -95,10 +95,10 @@ public class PlaylistDAO {
         List<Playlist>list = new ArrayList<>();
         String sql = "SELECT * FROM PLAYLIST";
         //Statement object is used to execute SQL statement
-        Statement stmt = connect.createStatement();
+        Statement statement = connect.createStatement();
 
         //ResultSet returns a table representing database.
-        ResultSet rs = stmt.executeQuery(sql);
+        ResultSet rs = statement.executeQuery(sql);
 
         while (rs.next()){
             int playList_id = rs.getInt(1);
@@ -117,7 +117,7 @@ public class PlaylistDAO {
         System.out.format("|\t%-5s|\t%-15s|\t\n","Id","PlayList Name");
         System.out.println("+--------------------------+");
         for(Playlist list : listDisplay){
-            System.out.format("|\t%-5s|\t%-15s|\t\n",list.getPlaylist_id(),list.getPlaylist_name());
+            System.out.format("|\t%-5s|\t%-15s|\t\n",list.getPlaylistId(),list.getPlaylistName());
         }
         System.out.println("+--------------------------+");
     }

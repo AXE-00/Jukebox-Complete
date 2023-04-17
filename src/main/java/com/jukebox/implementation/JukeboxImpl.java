@@ -28,7 +28,7 @@ public class JukeboxImpl {
 
         do{
             System.out.print("To start the Jukebox Press Enter :  ");
-            enter = input.nextLine(); // want to start jukebox, press "Y"
+            enter = input.nextLine();
             if(!enter.equalsIgnoreCase("")){
                 System.out.println("Press Enter to start");
             }
@@ -47,9 +47,11 @@ public class JukeboxImpl {
             try {
                 System.out.println();
 
-                System.out.println("          \n" +
-                        "           █░█░█ █▀▀ █░░ █▀▀ █▀█ █▀▄▀█ █▀▀   ▀█▀ █▀█   ░░█ █░█ █▄▀ █▀▀ █▄▄ █▀█ ▀▄▀\n" +
-                        "           ▀▄▀▄▀ ██▄ █▄▄ █▄▄ █▄█ █░▀░█ ██▄   ░█░ █▄█   █▄█ █▄█ █░█ ██▄ █▄█ █▄█ █░█           ");
+                System.out.println("""
+                                 \s
+                                   █░█░█ █▀▀ █░░ █▀▀ █▀█ █▀▄▀█ █▀▀   ▀█▀ █▀█   ░░█ █░█ █▄▀ █▀▀ █▄▄ █▀█ ▀▄▀
+                                   ▀▄▀▄▀ ██▄ █▄▄ █▄▄ █▄█ █░▀░█ ██▄   ░█░ █▄█   █▄█ █▄█ █░█ ██▄ █▄█ █▄█ █░█           \
+                        """);
                 System.out.println("--------------------------------------------------------------------------------------------------------------------------");
                 System.out.println("                                                     SONG DETAILS                                                         ");
                 System.out.println();
@@ -80,7 +82,7 @@ public class JukeboxImpl {
 
                     case 1:
                         AudioPlayer audioPlayer = new AudioPlayer();
-                        audioPlayer.choice(list); // choice here is a method inside audioplayer
+                        audioPlayer.choice(list); // choice here is a method inside audioPlayer
                         flag = true;
                         break;
 
@@ -144,7 +146,7 @@ public class JukeboxImpl {
                         break;
 // Case 4 for exit
                     case 4:
-                        System.out.println("Thank You for using Jukebox, Visit again ✌\uFE0F");
+                        System.out.println("Thank You for using Jukebox, Visit again ✌️");
                         flag = false;
 
                         break;

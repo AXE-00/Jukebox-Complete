@@ -25,16 +25,16 @@ public class SongDAO {
 
         List<Songs>songsData = new ArrayList<>();
         String sql = "SELECT * FROM songs";
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
 
-        while (rs.next()) {
-            int song_Id = rs.getInt(1);
-            String song_name = rs.getString(2);
-            String artist_Name = rs.getString(3);
-            String genre = rs.getString(4);
-            String duration = rs.getString(5);
-            String filePath = rs.getString(6);
+        while (resultSet.next()) {
+            int song_Id = resultSet.getInt(1);
+            String song_name = resultSet.getString(2);
+            String artist_Name = resultSet.getString(3);
+            String genre = resultSet.getString(4);
+            String duration = resultSet.getString(5);
+            String filePath = resultSet.getString(6);
             Songs songs = new Songs(song_Id, song_name, artist_Name, genre, duration, filePath);
             songsData.add(songs);
         }
@@ -51,8 +51,8 @@ public class SongDAO {
         System.out.println("+---------------------------------------------------------------------------------------------+");
 
         for (Songs song : list) {
-            System.out.format("|\t%-5d|\t%-30s|\t%-17s|\t%-17s|\t%-10s|\n", song.getSong_Id(), song.getSong_Name(),
-                    song.getArtist_Name(), song.getGenre(), song.getDuration());
+            System.out.format("|\t%-5d|\t%-30s|\t%-17s|\t%-17s|\t%-10s|\n", song.getSongId(), song.getSongName(),
+                    song.getArtistName(), song.getGenre(), song.getDuration());
         }
         System.out.println("+---------------------------------------------------------------------------------------------+");
     }
@@ -79,15 +79,15 @@ public class SongDAO {
                 System.out.println("invalid input");
         }
         String sql = "SELECT * FROM songs WHERE " + val + " LIKE '%" + name + "%';";
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        while (rs.next()) {
-            int song_Id = rs.getInt(1);
-            String song_name = rs.getString(2);
-            String artist_Name = rs.getString(3);
-            String genre = rs.getString(4);
-            String duration = rs.getString(5);
-            String filePath = rs.getString(6);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()) {
+            int song_Id = resultSet.getInt(1);
+            String song_name = resultSet.getString(2);
+            String artist_Name = resultSet.getString(3);
+            String genre = resultSet.getString(4);
+            String duration = resultSet.getString(5);
+            String filePath = resultSet.getString(6);
             Songs songs = new Songs(song_Id, song_name, artist_Name, genre, duration, filePath);
             searchList.add(songs);
         }
@@ -109,10 +109,10 @@ public class SongDAO {
         System.out.print("Enter the id of the song you wants to Play : ");
         int id = input.nextInt();
         String sql="SELECT filepath FROM SONGS WHERE SONG_ID = "+id+";";
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        while (rs.next()){
-            filepath = rs.getString(1);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()){
+            filepath = resultSet.getString(1);
         }
         return filepath;
 

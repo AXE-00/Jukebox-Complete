@@ -2,44 +2,44 @@ package com.jukebox.bean;
 
 public class Songs {
 
-    private int song_Id;
-    private String song_Name;
-    private String artist_Name;
+    private int songId;
+    private String songName;
+    private String artistName;
     private String genre;
     private  String duration;
     private String filePath;
 
-    public Songs(int song_Id, String song_Name, String artist_Name, String genre, String duration, String filePath) {
-        this.song_Id = song_Id;
-        this.song_Name = song_Name;
-        this.artist_Name = artist_Name;
+    public Songs(int songId, String songName, String artistName, String genre, String duration, String filePath) {
+        this.songId = songId;
+        this.songName = songName;
+        this.artistName = artistName;
         this.genre = genre;
         this.duration = duration;
         this.filePath = filePath;
     }
 
-    public int getSong_Id() {
-        return song_Id;
+    public int getSongId() {
+        return songId;
     }
 
-    public void setSong_Id(int song_Id) {
-        this.song_Id = song_Id;
+    public void setSongId(int songId) {
+        this.songId = songId;
     }
 
-    public String getSong_Name() {
-        return song_Name;
+    public String getSongName() {
+        return songName;
     }
 
-    public void setSong_Name(String song_Name) {
-        this.song_Name = song_Name;
+    public void setSongName(String songName) {
+        this.songName = songName;
     }
 
-    public String getArtist_Name() {
-        return artist_Name;
+    public String getArtistName() {
+        return artistName;
     }
 
-    public void setArtist_Name(String artist_Name) {
-        this.artist_Name = artist_Name;
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
     }
 
     public String getGenre() {
@@ -68,9 +68,9 @@ public class Songs {
 
     @Override
     public String toString() {
-        return "Id=" + song_Id +
-                ", Title ='" + song_Name + '\'' +
-                ", Artist ='" + artist_Name + '\'' +
+        return "Id=" + songId +
+                ", Title ='" + songName + '\'' +
+                ", Artist ='" + artistName + '\'' +
                 ", Genre='" + genre + '\'' +
                 ", Duration='" + duration;
     }

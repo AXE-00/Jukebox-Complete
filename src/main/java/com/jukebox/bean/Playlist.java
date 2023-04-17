@@ -1,35 +1,35 @@
 package com.jukebox.bean;
 
 public class Playlist {
-    private int playlist_id;
-    private String playlist_name;
+    private int playlistId;
+    private String playlistName;
 
     public  Playlist(){
 
     }
 
-    public Playlist(int playlist_id, String playlist_name) {
-        this.playlist_id = playlist_id;
-        this.playlist_name = playlist_name;
+    public Playlist(int playlistId, String playlistName) {
+        this.playlistId = playlistId;
+        this.playlistName = playlistName;
     }
 
-    public int getPlaylist_id() {
-        return playlist_id;
+    public int getPlaylistId() {
+        return playlistId;
     }
 
-    public void setPlaylist_id(int playlist_id) {
-        this.playlist_id = playlist_id;
+    public void setPlaylistId(int playlistId) {
+        this.playlistId = playlistId;
     }
 
-    public String getPlaylist_name() {
-        return playlist_name;
+    public String getPlaylistName() {
+        return playlistName;
     }
 
 
 
     @Override
     public String toString() {
-        return " playlist_name='" + playlist_name ;
+        return " playlist_name='" + playlistName;
     }
 }
 

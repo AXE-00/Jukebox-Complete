@@ -61,10 +61,10 @@ public class AudioPlayer {
             Random ran = new Random();
             int Id = ran.nextInt(14);  // Random number generated within the bound of 14. // no of songs.
             String sql = "SELECT FILEPATH FROM SONGS WHERE SONG_ID =" + Id + ";";
-            Statement stmt = connect.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            Statement statement = connect.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
 
-            if (rs.next()) {  // If the next song is exists
+            if (resultSet.next()) {  // If the next song is exists
                 if (clip.isRunning()) {
                     // then check if the song is running or not
                     // If running stop that song.
@@ -74,7 +74,7 @@ public class AudioPlayer {
                 }
                 currentFrame = 0L;
                 // Now store the filePath which we are getting from the database to a String variable filePath
-                filePath = rs.getString(1);
+                filePath = resultSet.getString(1);
                 //To get the data from the filePath, We are using File and AudioInputStream
                 File file = new File(filePath);
                 audioPlayer = AudioSystem.getAudioInputStream(file);
@@ -129,8 +129,8 @@ public class AudioPlayer {
     public void skip() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
 
         System.out.println("Enter time (" + 0 + " - " + clip.getMicrosecondLength() + ")");
-        Scanner sc = new Scanner(System.in);
-        long c1 = sc.nextLong();
+        Scanner scanner = new Scanner(System.in);
+        long c1 = scanner.nextLong();
         jump(c1);
 
     }

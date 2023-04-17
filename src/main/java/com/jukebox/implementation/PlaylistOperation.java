@@ -66,7 +66,7 @@ public class PlaylistOperation {
                             choose = 0;   // by initializing choose=0, we are going back to the main menu.
                         } else {
                             playlistDAO.displayList(data);
-                            playlist.setPlaylist_id(input.nextInt());
+                            playlist.setPlaylistId(input.nextInt());
                             String info = playlistDAO.deletePlaylist(playlist);
                             System.out.println(info);
                             do {

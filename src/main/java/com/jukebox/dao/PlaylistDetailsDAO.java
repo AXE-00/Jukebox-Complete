@@ -15,14 +15,14 @@ public class PlaylistDetailsDAO {
     PlaylistDetails playlistDetails = new PlaylistDetails();
 
     public String addSongInPlaylist(int songId, int playId) throws SQLException {
-        playlistDetails.setSong_Id(songId);
-        playlistDetails.setPlayList_Id(playId);
+        playlistDetails.setSongId(songId);
+        playlistDetails.setPlayListId(playId);
         int rows;
         String sql = "insert into songInPlaylist(songId,playlistId) values(?,?)";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1,playlistDetails.getSong_Id());
-        stmt.setInt(2,playlistDetails.getPlayList_Id());
-        rows = stmt.executeUpdate();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1,playlistDetails.getSongId());
+        statement.setInt(2,playlistDetails.getPlayListId());
+        rows = statement.executeUpdate();
         if(rows>0)
             return "Added successfully! ";
 
@@ -33,27 +33,27 @@ public class PlaylistDetailsDAO {
 
     // To check the song in song Playlist
     public List<Songs> songsInPlaylist(List<Integer>list)throws SQLException{
-        List<Songs> li = new ArrayList<>();
-        Iterator<Integer> itr = list.iterator();
+        List<Songs> list1 = new ArrayList<>();
+        Iterator<Integer> iterator = list.iterator();
         String sql;
-        while (itr.hasNext()){
-            int id = itr.next();
+        while (iterator.hasNext()){
+            int id = iterator.next();
             sql = "SELECT * FROM songs WHERE song_id ="+id+";";
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()){
-                int songId = rs.getInt(1);
-                String songName = rs.getString(2);
-                String artistName = rs.getString(3);
-                String genre = rs.getString(4);
-                String duration = rs.getString(5);
-                String fileP = rs.getString(6);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+            while (resultSet.next()){
+                int songId = resultSet.getInt(1);
+                String songName = resultSet.getString(2);
+                String artistName = resultSet.getString(3);
+                String genre = resultSet.getString(4);
+                String duration = resultSet.getString(5);
+                String fileP = resultSet.getString(6);
                 Songs songs = new Songs(songId,songName,artistName,genre,duration,fileP);
-                li.add(songs);
+                list1.add(songs);
             }
         }
 
-        return li;
+        return list1;
     }
 
     // Here we are getting the Song id from the song In Playlist table.
@@ -62,10 +62,10 @@ public class PlaylistDetailsDAO {
         int songId;
 
         String sql = "SELECT songId FROM songInPlaylist WHERE playlistId = "+playId+";";
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        while (rs.next()){
-            songId = rs.getInt(1);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()){
+            songId = resultSet.getInt(1);
             list.add(songId);
         }
         return list;
