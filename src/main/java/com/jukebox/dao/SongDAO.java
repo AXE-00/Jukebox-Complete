@@ -1,6 +1,6 @@
 package com.jukebox.dao;
 
-import com.jukebox.bean.Songs;
+import com.jukebox.bean.Song;
 import com.jukebox.exception.ArtistNameNotFoundException;
 import com.jukebox.exception.GenreNotFoundException;
 import com.jukebox.exception.SongNotFoundException;
@@ -15,15 +15,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SongDAO {
+    public static Connection connection = DatabaseConnectionUtil.getConnection();
     static Scanner input = new Scanner(System.in);
 
-    public static Connection connection = DatabaseConnectionUtil.getConnection();
-
-
     // Getting all the songs present in the database
-    public List<Songs> getAllSongs() throws SQLException {
+    public List<Song> getAllSongs() throws SQLException {
 
-        List<Songs>songsData = new ArrayList<>();
+        List<Song> songData = new ArrayList<>();
         String sql = "SELECT * FROM songs";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
@@ -35,24 +33,23 @@ public class SongDAO {
             String genre = resultSet.getString(4);
             String duration = resultSet.getString(5);
             String filePath = resultSet.getString(6);
-            Songs songs = new Songs(song_Id, song_name, artist_Name, genre, duration, filePath);
-            songsData.add(songs);
+            Song song = new Song(song_Id, song_name, artist_Name, genre, duration, filePath);
+            songData.add(song);
         }
 
-        return songsData;
+        return songData;
     }
 
     // Display those songs using this display method.
-    public void displaySongs(List<Songs> list){
+    public void displaySongs(List<Song> list) {
         System.out.println("+---------------------------------------------------------------------------------------------+");
 
         System.out.format("|\t%-5s|\t%-30s|\t%-17s|\t%-17s|\t%-10s|\n", "id", "Title", "Artist", "Genre", "Duration");
 
         System.out.println("+---------------------------------------------------------------------------------------------+");
 
-        for (Songs song : list) {
-            System.out.format("|\t%-5d|\t%-30s|\t%-17s|\t%-17s|\t%-10s|\n", song.getSongId(), song.getSongName(),
-                    song.getArtistName(), song.getGenre(), song.getDuration());
+        for (Song song : list) {
+            System.out.format("|\t%-5d|\t%-30s|\t%-17s|\t%-17s|\t%-10s|\n", song.getSongId(), song.getSongName(), song.getArtistName(), song.getGenre(), song.getDuration());
         }
         System.out.println("+---------------------------------------------------------------------------------------------+");
     }
@@ -60,9 +57,9 @@ public class SongDAO {
 
     // Search by song name, Artist Name, and Genre
 
-    public List<Songs> searchBy(int press, String name) throws SQLException, ArtistNameNotFoundException,SongNotFoundException,GenreNotFoundException {
+    public List<Song> searchBy(int press, String name) throws SQLException, ArtistNameNotFoundException, SongNotFoundException, GenreNotFoundException {
 
-        List<Songs> searchList = new ArrayList<>();
+        List<Song> searchList = new ArrayList<>();
 
         String val = "";
         switch (press) {
@@ -88,8 +85,8 @@ public class SongDAO {
             String genre = resultSet.getString(4);
             String duration = resultSet.getString(5);
             String filePath = resultSet.getString(6);
-            Songs songs = new Songs(song_Id, song_name, artist_Name, genre, duration, filePath);
-            searchList.add(songs);
+            Song song = new Song(song_Id, song_name, artist_Name, genre, duration, filePath);
+            searchList.add(song);
         }
         if (searchList.size() == 0 && press == 1) {
             throw new SongNotFoundException("Song not Found");
@@ -104,14 +101,14 @@ public class SongDAO {
         return searchList;
     }
 
-    public String songToPlay() throws SQLException{
+    public String songToPlay() throws SQLException {
         String filepath = "";
         System.out.print("Enter the id of the song you wants to Play : ");
         int id = input.nextInt();
-        String sql="SELECT filepath FROM SONGS WHERE SONG_ID = "+id+";";
+        String sql = "SELECT filepath FROM SONGS WHERE SONG_ID = " + id + ";";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()){
+        while (resultSet.next()) {
             filepath = resultSet.getString(1);
         }
         return filepath;

@@ -1,7 +1,7 @@
-package com.jukebox.implementation;
+package com.jukebox.main;
 
 import com.jukebox.bean.Playlist;
-import com.jukebox.bean.Songs;
+import com.jukebox.bean.Song;
 import com.jukebox.dao.PlaylistDAO;
 import com.jukebox.dao.PlaylistDetailsDAO;
 import com.jukebox.dao.SongDAO;
@@ -18,9 +18,10 @@ public class PlaylistOperation {
 
     PlaylistDAO playlistDAO = new PlaylistDAO();
     Playlist playlist = new Playlist();
-    PlaylistDetailsDAO playLi = new PlaylistDetailsDAO();
+    PlaylistDetailsDAO playListDetails = new PlaylistDetailsDAO();
     SongDAO songDAO = new SongDAO();
-    Scanner input  = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
+
     public void myLibrary() throws SQLException, UnsupportedAudioFileException, LineUnavailableException, IOException {
         boolean flag1;
         do {
@@ -73,7 +74,7 @@ public class PlaylistOperation {
                                 System.out.println("Press 0 to exit & 1 to delete");
 
                                 choose = input.nextInt();
-                            }while (choose>1); // If user enters a number greater than 1,
+                            } while (choose > 1); // If user enters a number greater than 1,
                             // it is again going to ask the same thing.
                         }
                     } while (choose == 1);     // If it is 0, then we are getting out of the do while.
@@ -94,19 +95,19 @@ public class PlaylistOperation {
                             int playId = input.nextInt();
 
                             System.out.println("Enter the song id you wants to add : ");
-                            List<Songs> songD = songDAO.getAllSongs();
+                            List<Song> songD = songDAO.getAllSongs();
                             songDAO.displaySongs(songD);
                             int songId = input.nextInt();
-                            String action = playLi.addSongInPlaylist(songId, playId);
+                            String action = playListDetails.addSongInPlaylist(songId, playId);
                             System.out.println(action);
                             do {
                                 System.out.println("Enter 1 for add song & 0 to exit");
                                 choose = input.nextInt();
 
-                                if (choose>1) {
+                                if (choose > 1) {
                                     System.out.println("Invalid Input!");
                                 }
-                            } while (choose>1);
+                            } while (choose > 1);
                         }
                     } while (choose == 1);
                     flag1 = true;
@@ -127,14 +128,14 @@ public class PlaylistOperation {
                         System.out.println("Enter the playList id to see the songs in playlist : ");
                         int id = input.nextInt();
                         //now, grab the song id from the songInPlaylist table and store in a list.
-                        List<Integer> list2 = playLi.grabSongIdFromDetails(id);
+                        List<Integer> list2 = playListDetails.grabSongIdFromDetails(id);
 
                         // to get the song details
-                        List<Songs> lis = playLi.songsInPlaylist(list2);
-                        if (lis.size() != 0) {
-                            songDAO.displaySongs(lis);
+                        List<Song> list = playListDetails.songsInPlaylist(list2);
+                        if (list.size() != 0) {
+                            songDAO.displaySongs(list);
                             AudioPlayer audioPlayer = new AudioPlayer();
-                            audioPlayer.choice(lis);
+                            audioPlayer.choice(list);
 
                         } else {
                             System.out.println("No song added yet!");
@@ -152,8 +153,7 @@ public class PlaylistOperation {
 
             }
 
-        }
-        while (flag1);
+        } while (flag1);
     }
 }
 

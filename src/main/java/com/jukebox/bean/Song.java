@@ -1,15 +1,15 @@
 package com.jukebox.bean;
 
-public class Songs {
+public class Song {
 
     private int songId;
     private String songName;
     private String artistName;
     private String genre;
-    private  String duration;
+    private String duration;
     private String filePath;
 
-    public Songs(int songId, String songName, String artistName, String genre, String duration, String filePath) {
+    public Song(int songId, String songName, String artistName, String genre, String duration, String filePath) {
         this.songId = songId;
         this.songName = songName;
         this.artistName = artistName;
@@ -68,10 +68,6 @@ public class Songs {
 
     @Override
     public String toString() {
-        return "Id=" + songId +
-                ", Title ='" + songName + '\'' +
-                ", Artist ='" + artistName + '\'' +
-                ", Genre='" + genre + '\'' +
-                ", Duration='" + duration;
+        return "Id=" + songId + ", Title ='" + songName + '\'' + ", Artist ='" + artistName + '\'' + ", Genre='" + genre + '\'' + ", Duration='" + duration;
     }
 }

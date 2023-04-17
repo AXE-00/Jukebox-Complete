@@ -1,6 +1,6 @@
-package com.jukebox.implementation;
+package com.jukebox.main;
 
-import com.jukebox.bean.Songs;
+import com.jukebox.bean.Song;
 import com.jukebox.dao.SongDAO;
 import com.jukebox.exception.ArtistNameNotFoundException;
 import com.jukebox.exception.GenreNotFoundException;
@@ -19,21 +19,20 @@ public class JukeboxImpl {
     public static void main(String[] args) {
 
 
-        int choice ;
+        int choice;
 
         String enter;
-        boolean flag =false;
+        boolean flag = false;
         Scanner input = new Scanner(System.in);
 
 
-        do{
+        do {
             System.out.print("To start the Jukebox Press Enter :  ");
             enter = input.nextLine();
-            if(!enter.equalsIgnoreCase("")){
+            if (!enter.equalsIgnoreCase("")) {
                 System.out.println("Press Enter to start");
             }
-        }
-        while (!enter.equalsIgnoreCase(""));
+        } while (!enter.equalsIgnoreCase(""));
         System.out.println("--------------------------------------------------------------------------------------------------------------------------");
         System.out.println("                                                    Starting JukeBox                                                     |");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------");
@@ -57,7 +56,7 @@ public class JukeboxImpl {
                 System.out.println();
                 System.out.println("--------------------------------------------------------------------------------------------------------------------------");
 
-                List<Songs> list = songDAO.getAllSongs();
+                List<Song> list = songDAO.getAllSongs();
                 songDAO.displaySongs(list); //Displaying songs List
                 System.out.println();
                 System.out.println("1)   ▶️Play song");
@@ -72,35 +71,32 @@ public class JukeboxImpl {
                     if (choice > 4) {
                         System.out.println("Invalid Input!");
                     }
-                }
-                while (choice > 4);
+                } while (choice > 4);
 
 
                 switch (choice) {
 
 //  Case 1 for Audio Player or To Play song.
 
-                    case 1:
+                    case 1 -> {
                         AudioPlayer audioPlayer = new AudioPlayer();
                         audioPlayer.choice(list); // choice here is a method inside audioPlayer
                         flag = true;
-                        break;
+                    }
 
 //  Case 2 to give Operation Options to User
 
-                    case 2:
+                    case 2 -> {
                         objectOfPO.myLibrary(); //myLibrary is a method in Playlist operation
                         flag = true;
-                        break;
+                    }
 
 //  Case 3 to search
 
-                    case 3:
-
+                    case 3 -> {
                         int choice5;
                         int press = 0;
-                        boolean flag3 ;
-
+                        boolean flag3;
                         do {
 
                             try {
@@ -132,10 +128,10 @@ public class JukeboxImpl {
                                 System.out.print("Enter the Name : ");
                                 input.nextLine();
                                 String name = input.nextLine();
-                                List<Songs> songData = songDAO.searchBy(press, name);
+                                List<Song> songData = songDAO.searchBy(press, name);
                                 songDAO.displaySongs(songData);
-                            } catch (ArtistNameNotFoundException | SongNotFoundException |
-                                     GenreNotFoundException | InputMismatchException e) {
+                            } catch (ArtistNameNotFoundException | SongNotFoundException | GenreNotFoundException |
+                                     InputMismatchException e) {
                                 System.out.println(e);
                             }
                             System.out.println("Want to search again ? 1) Search  0) Exit");
@@ -143,22 +139,19 @@ public class JukeboxImpl {
 
                         } while (choice5 == 1);
                         flag = true;
-                        break;
+                    }
 // Case 4 for exit
-                    case 4:
+                    case 4 -> {
                         System.out.println("Thank You for using Jukebox, Visit again ✌️");
                         flag = false;
-
-                        break;
-                    default:
-                        System.out.println("Invalid Input!");
-                        break;
+                    }
+                    default -> System.out.println("Invalid Input!");
                 }
-            }catch (SQLException | UnsupportedAudioFileException | LineUnavailableException | IOException e){
+            } catch (SQLException | UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                 System.out.println(e);
             }
 
-        }while (flag);
+        } while (flag);
 
 
     }

@@ -4,7 +4,7 @@ public class Playlist {
     private int playlistId;
     private String playlistName;
 
-    public  Playlist(){
+    public Playlist() {
 
     }
 
@@ -24,7 +24,6 @@ public class Playlist {
     public String getPlaylistName() {
         return playlistName;
     }
-
 
 
     @Override

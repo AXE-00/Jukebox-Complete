@@ -1,6 +1,6 @@
 package com.jukebox.util;
 
-import com.jukebox.bean.Songs;
+import com.jukebox.bean.Song;
 import com.jukebox.dao.SongDAO;
 
 import javax.sound.sampled.*;
@@ -135,7 +135,7 @@ public class AudioPlayer {
 
     }
 
-    public void choice(List<Songs> list) throws UnsupportedAudioFileException, LineUnavailableException, IOException, SQLException {
+    public void choice(List<Song> list) throws UnsupportedAudioFileException, LineUnavailableException, IOException, SQLException {
         int choice1, next;
 
 //            songDAO.displaySongs(list);

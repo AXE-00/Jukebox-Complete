@@ -27,9 +27,6 @@ public class PlaylistDetails {
 
     @Override
     public String toString() {
-        return "PlaylistDetails{" +
-                "song_Id=" + songId +
-                ", playList_Id=" + playListId +
-                '}';
+        return "PlaylistDetails{" + "song_Id=" + songId + ", playList_Id=" + playListId + '}';
     }
 }
